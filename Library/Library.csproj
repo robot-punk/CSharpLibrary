@@ -54,18 +54,6 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="KZCalendar">
-      <HintPath>..\KZTools\KZCalendar.dll</HintPath>
-    </Reference>
-    <Reference Include="KZDataSet">
-      <HintPath>..\KZTools\KZDataSet.dll</HintPath>
-    </Reference>
-    <Reference Include="KZDocument">
-      <HintPath>..\KZTools\KZDocument.dll</HintPath>
-    </Reference>
-    <Reference Include="Npgsql">
-      <HintPath>..\Npgsql\Npgsql.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -94,6 +82,7 @@
     <Compile Include="_Utilities\SetUtility.cs" />
     <Compile Include="_Utilities\StringUtility.cs" />
     <Compile Include="_Utilities\TreeViewUtility.cs" />
+    <Compile Include="_Utilities\XmlUtility.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
