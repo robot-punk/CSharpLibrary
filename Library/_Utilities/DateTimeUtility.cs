@@ -72,5 +72,42 @@ namespace Library
                 yield return startDate.AddDays(i);
             }
         }
+
+        /// <summary>指定した年月の月初日を取得する。
+        /// </summary>
+        /// <param name="yyyymm">年月（文字列）</param>
+        /// <returns>月初日</returns>
+        public static DateTime GetMonthFirstDay(string yyyymm)
+        {
+            return DateTimeUtility.ParseYYYYMMDD(yyyymm + "01");
+        }
+
+        /// <summary>指定した年月の月末日を取得する。
+        /// </summary>
+        /// <param name="yyyymm">年月（文字列）</param>
+        /// <returns>月末日</returns>
+        public static DateTime GetMonthLastDay(string yyyymm)
+        {
+            DateTime monthFirstDay = DateTimeUtility.GetMonthFirstDay(yyyymm);
+            return monthFirstDay.AddMonths(1).AddDays(-1);
+        }
+
+        /// <summary>指定した日付の月初日を取得する。
+        /// </summary>
+        /// <param name="value">日付</param>
+        /// <returns>月初日</returns>
+        public static DateTime GetMonthFirstDay(DateTime value)
+        {
+            return new DateTime(value.Year, value.Month, 1);
+        }
+
+        /// <summary>指定した日付の月末日を取得する。
+        /// </summary>
+        /// <param name="value">日付</param>
+        /// <returns>月末日</returns>
+        public static DateTime GetMonthLastDay(DateTime value)
+        {
+            return DateTimeUtility.GetMonthFirstDay(value.AddMonths(1)).AddDays(-1);
+        }
     }
 }
