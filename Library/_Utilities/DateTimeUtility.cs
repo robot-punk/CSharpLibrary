@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Library
 {
@@ -9,6 +10,10 @@ namespace Library
     /// </summary>
     public static class DateTimeUtility
     {
+        /// <summary>時刻形式 正規表現
+        /// </summary>
+        public const string REGEX_TIME_PATTERN = "/^([01]?[0-9]|2[0-3]):([0-5][0-9])$";
+
         /// <summary>日付を表す文字列(yyyyMMdd)をDateTime型に変換する。失敗した場合はエラーをスローする。
         /// </summary>
         /// <param name="yyyymmdd">日付を表す文字列(yyyyMMdd)。</param>
@@ -71,6 +76,54 @@ namespace Library
             {
                 yield return startDate.AddDays(i);
             }
+        }
+
+        /// <summary>指定した年月の月初日を取得する。
+        /// </summary>
+        /// <param name="yyyymm">年月（文字列）</param>
+        /// <returns>月初日</returns>
+        public static DateTime GetMonthFirstDay(string yyyymm)
+        {
+            return DateTimeUtility.ParseYYYYMMDD(yyyymm + "01");
+        }
+
+        /// <summary>指定した年月の月末日を取得する。
+        /// </summary>
+        /// <param name="yyyymm">年月（文字列）</param>
+        /// <returns>月末日</returns>
+        public static DateTime GetMonthLastDay(string yyyymm)
+        {
+            DateTime monthFirstDay = DateTimeUtility.GetMonthFirstDay(yyyymm);
+            return monthFirstDay.AddMonths(1).AddDays(-1);
+        }
+
+        /// <summary>指定した日付の月初日を取得する。
+        /// </summary>
+        /// <param name="value">日付</param>
+        /// <returns>月初日</returns>
+        public static DateTime GetMonthFirstDay(DateTime value)
+        {
+            return new DateTime(value.Year, value.Month, 1);
+        }
+
+        /// <summary>指定した日付の月末日を取得する。
+        /// </summary>
+        /// <param name="value">日付</param>
+        /// <returns>月末日</returns>
+        public static DateTime GetMonthLastDay(DateTime value)
+        {
+            return DateTimeUtility.GetMonthFirstDay(value.AddMonths(1)).AddDays(-1);
+        }
+
+        /// <summary>指定した文字列が時刻形式かどうかを検証する。 
+        /// </summary>
+        /// <param name="value">時刻</param>
+        /// <returns>時刻形式の場合は true </returns>
+        /// <remarks>hh;mm、h:m の2形式をサポートする。</remarks>
+        public static bool IsTime(string value)
+        {
+            //string pattern = "/^([01]?[0-9]|2[0-3]):([0-5][0-9])$";
+            return Regex.IsMatch(value, REGEX_TIME_PATTERN);
         }
     }
 }

@@ -1,14 +1,26 @@
 using System.Text;
 namespace Library
 {
+    /// <summary>XML ユーティリティ
+    /// </summary>
     public static class XmlUtility
     {
+        /// <summary>シリアライズしたデータを書き込む。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="filePath"></param>
         public static void Serialize<T>(T obj, string filePath)
         {
             using (var sw = new System.IO.StreamWriter(filePath, false, new UTF8Encoding(false)))
                 new System.Xml.Serialization.XmlSerializer(typeof(T)).Serialize(sw, obj);
         }
 
+        /// <summary>逆シリアライズする。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static T Deserialize<T>(string filePath)
         {
             var returnValue = default(T);
@@ -20,7 +32,7 @@ namespace Library
 }
 
 
-
+// ↓使い方。
 //class MainClass
 //{
 //    public static void Main()
